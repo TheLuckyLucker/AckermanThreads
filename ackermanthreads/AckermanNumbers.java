@@ -7,12 +7,13 @@ package ackermanthreads;
 
 /**
  *
- * @author Conny
+ * @author Conny Blach, s4329872
+ * @author Tiko Huizinga, s4460898
  */
 public class AckermanNumbers{
     private int ackerman;
     private int m,n;
-    private boolean canceled;
+    private boolean canceled;       // This was used for task 2
     
     public AckermanNumbers(int m, int n){
         this.m = m;
@@ -20,6 +21,12 @@ public class AckermanNumbers{
         canceled = false;
     }
     
+    /**
+     * Calculates the ackermannfunction for m and n
+     * @param m
+     * @param n
+     * @return 
+     */
     public int calculate(int m, int n){
         if(m == 0){
             this.ackerman = n + 1;

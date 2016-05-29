@@ -11,7 +11,8 @@ import javafx.concurrent.Task;
 
 /**
  *
- * @author Conny
+ * @author Conny Blach, s4329872
+ * @author Tiko Huizinga, s4460898
  */
 public class AckermanRunner extends Task<Integer>{
 
@@ -23,7 +24,8 @@ public class AckermanRunner extends Task<Integer>{
         this.controller = t;
     }
     
-    /*
+    /**
+     * This was used for task2 when we had to use the threads
     @Override
     public void run() {
         numbers.calculate(numbers.getM(), numbers.getN());
@@ -36,6 +38,11 @@ public class AckermanRunner extends Task<Integer>{
         }
     }*/
 
+    /**
+     * Call function which is executed by the Ackermann Worker
+     * @return the new value for value of Task
+     * @throws Exception 
+     */
     @Override
     protected Integer call() throws Exception {
         numbers.calculate(numbers.getM(), numbers.getN());

@@ -5,13 +5,8 @@
  */
 package ackermanthreads;
 
-import static java.lang.Thread.sleep;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,7 +15,8 @@ import javafx.scene.control.TextField;
 
 /**
  *
- * @author Conny
+ * @author Conny Blach, s4329872
+ * @author Tiko Huizinga, s4460898
  */
 public class FXMLDocumentController implements Initializable {
     
@@ -30,11 +26,15 @@ public class FXMLDocumentController implements Initializable {
     private Label resultField, progStatus;
     
     private AckermanNumbers numbers;
-    private String statusMessage;
     AckermanRunner runner;
     
+    /**
+     * Handle a click on the start button
+     * This should create a new thread of an ackermanRunner
+     * @param event the click event
+     */
     @FXML
-    private void handleStartButtonAction(ActionEvent event) throws InterruptedException, ExecutionException {
+    private void handleStartButtonAction(ActionEvent event)  {
         numbers = new AckermanNumbers(
                                 Integer.parseInt(mInput.getText()),
                                 Integer.parseInt(nInput.getText()));
@@ -46,11 +46,16 @@ public class FXMLDocumentController implements Initializable {
 //        testRunner.start();
         runner = new AckermanRunner(numbers, this);
         Thread t = new Thread(runner);
+        t.setUncaughtExceptionHandler((thread,e) -> setStatusMessage("Stack Overflow"));
         t.start();
 //        System.out.println(test.get());
 
     }
     
+    /**
+     * Handle the click on the cancel button to cancel the working thread
+     * @param event 
+     */
     @FXML
     private void handleCancelButton(ActionEvent event){
         setStatusMessage("Canceled");
@@ -58,6 +63,10 @@ public class FXMLDocumentController implements Initializable {
         updateResult(0);
     }
     
+    /**
+     * Handle a click on the quit button to exit the app
+     * @param event 
+     */
     @FXML
     private void handleQuitButton(ActionEvent event){
         System.exit(0);
@@ -68,10 +77,18 @@ public class FXMLDocumentController implements Initializable {
         // TODO
     }    
     
+    /**
+     * Updates the Label result
+     * @param result the result with which the label is updated
+     */
     public void updateResult(int result){
         resultField.setText(Integer.toString(result));
     }
     
+    /**
+     * Sets a new status message for the user such that he knows what the app is doing
+     * @param message statusmessage
+     */
     public void setStatusMessage(String message){
         progStatus.setText(message);
     }
