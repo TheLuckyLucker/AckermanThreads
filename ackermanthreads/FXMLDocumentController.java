@@ -5,6 +5,7 @@
  */
 package ackermanthreads;
 
+import static java.lang.Thread.sleep;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -24,20 +25,29 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private TextField mInput, nInput;
+    @FXML
+    private Label resultField, progStatus;
+    
+    private AckermanNumbers numbers;
+    private String statusMessage;
     
     @FXML
     private void handleStartButtonAction(ActionEvent event) {
-        AckermanNumbers test = new AckermanNumbers(
+        numbers = new AckermanNumbers(
                                 Integer.parseInt(mInput.getText()),
                                 Integer.parseInt(nInput.getText()));
-        Thread testRunner = new Thread(new AckermanRunner(test));
-        Platform.runLater(testRunner);
-        System.out.println(test.getAckerman());
+        Thread testRunner = new Thread(new AckermanRunner(numbers,this));
+        numbers.setCanceled(false);
+        testRunner.setUncaughtExceptionHandler((Thread t, Throwable e) -> System.out.println("oeps"));
+        setStatusMessage("Calculating....");
+        testRunner.start();
+
     }
     
     @FXML
     private void handleCancelButton(ActionEvent event){
-        System.out.println("cancel");
+        numbers.setCanceled(true);
+        updateResult(0);
     }
     
     @FXML
@@ -49,5 +59,13 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+    
+    public void updateResult(int result){
+        resultField.setText(Integer.toString(result));
+    }
+    
+    public void setStatusMessage(String message){
+        progStatus.setText(message);
+    }
     
 }

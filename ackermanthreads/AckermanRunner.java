@@ -5,6 +5,9 @@
  */
 package ackermanthreads;
 
+import javafx.application.Platform;
+
+
 /**
  *
  * @author Conny
@@ -12,14 +15,23 @@ package ackermanthreads;
 public class AckermanRunner implements Runnable{
 
     private AckermanNumbers numbers;
+    private final FXMLDocumentController controller;
     
-    public AckermanRunner(AckermanNumbers A){
+    public AckermanRunner(AckermanNumbers A, FXMLDocumentController t){
         this.numbers = A;
+        this.controller = t;
     }
     
     @Override
     public void run() {
         numbers.calculate(numbers.getM(), numbers.getN());
+        Platform.runLater(() -> controller.updateResult(numbers.getAckerman()));
+        if(numbers.getCanceled()){
+            Platform.runLater(() -> controller.setStatusMessage("Canceled"));
+        }
+        else{
+            Platform.runLater(() -> controller.setStatusMessage("Finished"));
+        }
     }
     
 }
