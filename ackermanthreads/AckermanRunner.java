@@ -6,13 +6,14 @@
 package ackermanthreads;
 
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 
 
 /**
  *
  * @author Conny
  */
-public class AckermanRunner implements Runnable{
+public class AckermanRunner extends Task<Integer>{
 
     private AckermanNumbers numbers;
     private final FXMLDocumentController controller;
@@ -22,6 +23,7 @@ public class AckermanRunner implements Runnable{
         this.controller = t;
     }
     
+    /*
     @Override
     public void run() {
         numbers.calculate(numbers.getM(), numbers.getN());
@@ -32,6 +34,19 @@ public class AckermanRunner implements Runnable{
         else{
             Platform.runLater(() -> controller.setStatusMessage("Finished"));
         }
+    }*/
+
+    @Override
+    protected Integer call() throws Exception {
+        numbers.calculate(numbers.getM(), numbers.getN());
+        Platform.runLater(() -> controller.updateResult(numbers.getAckerman()));
+        if(this.isCancelled()){
+            Platform.runLater(() -> controller.setStatusMessage("Canceled"));
+        }
+        else{
+            Platform.runLater(() -> controller.setStatusMessage("Finished"));
+        }
+        return 0;
     }
     
 }

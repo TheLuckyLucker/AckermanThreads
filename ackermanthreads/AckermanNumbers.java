@@ -21,24 +21,18 @@ public class AckermanNumbers{
     }
     
     public int calculate(int m, int n){
-        if(!canceled){
-            if(m == 0){
-                this.ackerman = n + 1;
-                return n + 1;
-            }
-            else if(m > 0 && n == 0){
-                return calculate(m-1, 1);
-            }
-            else if(m > 0 && n > 0){
-                return calculate(m-1, calculate(m, n-1));
-            }
-            this.ackerman = 0 ;
-            return 0;
+        if(m == 0){
+            this.ackerman = n + 1;
+            return n + 1;
         }
-        else{
-            this.ackerman = 0;
-            return 0;
+        else if(m > 0 && n == 0){
+            return calculate(m-1, 1);
         }
+        else if(m > 0 && n > 0){
+            return calculate(m-1, calculate(m, n-1));
+        }
+        this.ackerman = 0 ;
+        return 0;
     }
     
     public int getAckerman(){
