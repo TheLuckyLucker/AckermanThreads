@@ -9,15 +9,18 @@ package ackermanthreads;
  *
  * @author Conny
  */
-public class AckermanNumbers {
+public class AckermanNumbers{
     private int ackerman;
+    private int m,n;
     
     public AckermanNumbers(int m, int n){
-        this.ackerman = calculate(m,n);
+        this.m = m;
+        this.n = n;
     }
     
-    private int calculate(int m, int n){
+    public int calculate(int m, int n){
         if(m == 0){
+            this.ackerman = n + 1;
             return n + 1;
         }
         else if(m > 0 && n == 0){
@@ -31,5 +34,13 @@ public class AckermanNumbers {
     
     public int getAckerman(){
         return this.ackerman;
+    }
+    
+    public int getN(){
+        return this.n;
+    }
+    
+    public int getM(){
+        return this.m;
     }
 }

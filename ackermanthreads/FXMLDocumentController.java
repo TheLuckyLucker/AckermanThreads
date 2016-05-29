@@ -7,10 +7,14 @@ package ackermanthreads;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 /**
  *
@@ -19,12 +23,26 @@ import javafx.scene.control.Label;
 public class FXMLDocumentController implements Initializable {
     
     @FXML
-    private Label label;
+    private TextField mInput, nInput;
     
     @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
+    private void handleStartButtonAction(ActionEvent event) {
+        AckermanNumbers test = new AckermanNumbers(
+                                Integer.parseInt(mInput.getText()),
+                                Integer.parseInt(nInput.getText()));
+        Thread testRunner = new Thread(new AckermanRunner(test));
+        Platform.runLater(testRunner);
+        System.out.println(test.getAckerman());
+    }
+    
+    @FXML
+    private void handleCancelButton(ActionEvent event){
+        System.out.println("cancel");
+    }
+    
+    @FXML
+    private void handleQuitButton(ActionEvent event){
+        System.exit(0);
     }
     
     @Override
