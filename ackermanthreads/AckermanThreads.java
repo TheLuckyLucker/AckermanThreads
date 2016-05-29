@@ -13,7 +13,8 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Conny
+ * @author Conny Blach, s4329872
+ * @author Tiko Huizinga, s44460898
  */
 public class AckermanThreads extends Application {
     
