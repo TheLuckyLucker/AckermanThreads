@@ -38,8 +38,8 @@ public class FXMLDocumentController implements Initializable {
                                 Integer.parseInt(nInput.getText()));
         Thread testRunner = new Thread(new AckermanRunner(numbers,this));
         numbers.setCanceled(false);
-        testRunner.setUncaughtExceptionHandler((Thread t, Throwable e) -> System.out.println("oeps"));
         setStatusMessage("Calculating....");
+        testRunner.setUncaughtExceptionHandler((t,e) -> setStatusMessage("Exception Bug"));
         testRunner.start();
 
     }
