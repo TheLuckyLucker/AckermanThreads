@@ -12,18 +12,19 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- *
+ * We used Java Scene Builder to create the GUI
+ * Sjaak said that it was not a part of the task to design the GUI so it was OK to use the Scene Builder for this Tasks
  * @author Conny Blach, s4329872
  * @author Tiko Huizinga, s44460898
  */
 public class AckermanThreads extends Application {
-    
+
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        
+
         Scene scene = new Scene(root);
-        
+
         stage.setScene(scene);
         stage.show();
     }
@@ -34,5 +35,5 @@ public class AckermanThreads extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }
